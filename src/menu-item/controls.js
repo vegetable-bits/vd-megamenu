@@ -1,29 +1,29 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const {
+import { __ } from '@wordpress/i18n';
+import {
 	useCallback,
 	useState,
 	useEffect
-} = wp.element;
-const {
+} from '@wordpress/element';
+import {
 	PanelBody,
 	TextControl,
 	ToggleControl,
 	ToolbarButton,
 	ToolbarGroup,
 	Popover,
-} = wp.components;
-const {
+} from '@wordpress/components';
+import {
 	BlockControls,
 	InspectorControls,
 	__experimentalLinkControl,
-} = wp.blockEditor;
+} from '@wordpress/block-editor';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
-function Controls( args ) {
+function Controls(args) {
 	const {
 		isSelected,
 		attributes,
@@ -39,53 +39,53 @@ function Controls( args ) {
 	} = attributes;
 	const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
 
-	const isURLSet = ! ( url === undefined || url.trim().length === 0 );
+	const isURLSet = !(url === undefined || url.trim().length === 0);
 
 	const openLinkControl = () => {
-		setIsURLPickerOpen( true );
+		setIsURLPickerOpen(true);
 		return false;
 	};
 
 	const unlinkItem = () => {
-		setAttributes( {
+		setAttributes({
 			url: undefined,
 			linkTarget: undefined,
 			rel: undefined,
-		} );
-		setIsURLPickerOpen( false );
+		});
+		setIsURLPickerOpen(false);
 	};
 
 	const onToggleOpenInNewTab = useCallback(
-		( value ) => {
+		(value) => {
 			const newLinkTarget = value ? '_blank' : undefined;
 
 			let updatedRel = rel;
-			if ( newLinkTarget && !rel ) {
+			if (newLinkTarget && !rel) {
 				updatedRel = NEW_TAB_REL;
-			} else if ( !newLinkTarget && rel === NEW_TAB_REL ) {
+			} else if (!newLinkTarget && rel === NEW_TAB_REL) {
 				updatedRel = undefined;
 			}
 
-			setAttributes( {
+			setAttributes({
 				linkTarget: newLinkTarget,
 				rel: updatedRel,
-			} );
+			});
 		},
-		[ rel, setAttributes ]
+		[rel, setAttributes]
 	);
 
 	const onSetLinkRel = useCallback(
-		( value ) => {
-			setAttributes( { rel: value } );
+		(value) => {
+			setAttributes({ rel: value });
 		},
-		[ setAttributes ]
+		[setAttributes]
 	);
 
-	useEffect( () => {
-		if ( isSelected && ! url ) {
-			setIsURLPickerOpen( true );
+	useEffect(() => {
+		if (isSelected && !url) {
+			setIsURLPickerOpen(true);
 		}
-	}, [ isSelected ] );
+	}, [isSelected]);
 
 	return (
 		<>
@@ -94,76 +94,76 @@ function Controls( args ) {
 					<ToolbarButton
 						name="link"
 						icon="admin-links"
-						title={ __( 'Edit Link' ) }
-						onClick={ openLinkControl }
-						isActive={ isURLSet }/>
+						title={__('Edit Link')}
+						onClick={openLinkControl}
+						isActive={isURLSet} />
 					<ToolbarButton
 						name="unlink"
 						icon="editor-unlink"
-						title={ __( 'Unlink' ) }
-						onClick={ unlinkItem }
-						isDisabled={ !isURLSet }/>
+						title={__('Unlink')}
+						onClick={unlinkItem}
+						isDisabled={!isURLSet} />
 				</ToolbarGroup>
 				<ToolbarGroup>
 					<ToolbarButton
 						name="submenu"
 						icon="download"
-						title={ __( 'Add submenu' ) }
-						onClick={ toggleItemDropdown }
+						title={__('Add submenu')}
+						onClick={toggleItemDropdown}
 					/>
 				</ToolbarGroup>
 			</BlockControls>
-			{ isURLPickerOpen && (
+			{isURLPickerOpen && (
 				<Popover
 					position="top center"
-					onClose={ () => setIsURLPickerOpen( false ) }
+					onClose={() => setIsURLPickerOpen(false)}
 				>
 					<__experimentalLinkControl
-						value={ {
+						value={{
 							url,
 							opensInNewTab: linkTarget === '_blank'
-						} }
-						onChange={ ( {
-					             title: newTitle = '',
-					             url: newURL = '',
-					             opensInNewTab: newOpensInNewTab,
-								 id: newId = '',
-								 kind: newKind = '',
-				             } ) => {
-							setAttributes( {
+						}}
+						onChange={({
+							title: newTitle = '',
+							url: newURL = '',
+							opensInNewTab: newOpensInNewTab,
+							id: newId = '',
+							kind: newKind = '',
+						}) => {
+							setAttributes({
 								id: newId,
 								kind: newKind,
 								url: newURL,
-								text: ( () => {
-									if ( text ) {
+								text: (() => {
+									if (text) {
 										return text;
 									}
-									if ( newTitle !== '' && text !== newTitle) {
+									if (newTitle !== '' && text !== newTitle) {
 										return newTitle;
 									}
-								} )()
-							} );
+								})()
+							});
 
-							if ( linkTarget === "_blank" !== newOpensInNewTab ) {
-								onToggleOpenInNewTab( newOpensInNewTab );
+							if (linkTarget === "_blank" !== newOpensInNewTab) {
+								onToggleOpenInNewTab(newOpensInNewTab);
 							}
 
-							setIsURLPickerOpen( false );
-						} }
+							setIsURLPickerOpen(false);
+						}}
 					/>
 				</Popover>
-			) }
+			)}
 			<InspectorControls>
-				<PanelBody title={ __( 'Link settings' ) }>
+				<PanelBody title={__('Link settings')}>
 					<ToggleControl
-						label={ __('Open in new tab') }
-						onChange={ onToggleOpenInNewTab }
-						checked={ linkTarget === '_blank' }
+						label={__('Open in new tab')}
+						onChange={onToggleOpenInNewTab}
+						checked={linkTarget === '_blank'}
 					/>
 					<TextControl
-						label={ __('Link rel') }
-						value={ rel || '' }
-						onChange={ onSetLinkRel }
+						label={__('Link rel')}
+						value={rel || ''}
+						onChange={onSetLinkRel}
 					/>
 				</PanelBody>
 			</InspectorControls>

@@ -7,23 +7,23 @@ import Controls from "./controls";
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const {
+import { __ } from '@wordpress/i18n';
+import {
 	useState,
 	useEffect,
 	useRef
-} = wp.element;
-const { compose } = wp.compose;
-const { withSelect, withDispatch } = wp.data;
-const {
+} from '@wordpress/element';
+import { compose } from '@wordpress/compose';
+import { withSelect, withDispatch } from '@wordpress/data';
+import {
 	RichText,
 	InnerBlocks,
-} = wp.blockEditor;
+} from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
  */
-function MenuItemEdit( props ) {
+function MenuItemEdit(props) {
 	const {
 		attributes,
 		setAttributes,
@@ -40,17 +40,17 @@ function MenuItemEdit( props ) {
 		text,
 	} = attributes;
 
-	const itemLabelPlaceholder = __( 'Add link…' );
+	const itemLabelPlaceholder = __('Add link…');
 	const [isItemDropdownOpened, setIsItemDropdownOpened] = useState(hasDescendants);
 	const isMenuItemSelected = isSelected || isParentOfSelectedBlock;
 	const menuItemHasChildrens = isItemDropdownOpened || hasDescendants;
 	const showDropdown = isMenuItemSelected && menuItemHasChildrens;
-	const [dropdownPosition, setDropdownPosition] = useState( { left:0, width: 'auto' } );
+	const [dropdownPosition, setDropdownPosition] = useState({ left: 0, width: 'auto' });
 	const menuItem = useRef(null);
 
 	const toggleItemDropdown = () => {
 		setIsItemDropdownOpened(!isItemDropdownOpened);
-		if(hasDescendants){
+		if (hasDescendants) {
 			updateInnerBlocks();
 		}
 		return false;
@@ -61,53 +61,53 @@ function MenuItemEdit( props ) {
 		let rootBlockNode;
 		const blockNode = menuItem.current;
 
-        if (!blockNode) {
-           return;
-        }
+		if (!blockNode) {
+			return;
+		}
 
 		const blockCoords = blockNode.getBoundingClientRect();
 
-		if ( parentAttributes.expandDropdown ) {
+		if (parentAttributes.expandDropdown) {
 			rootBlockNode = blockNode.closest('.editor-styles-wrapper');
 		} else {
-			rootBlockNode = blockNode.closest( '[data-block="' + rootBlockClientId + '"]' ).querySelector('.wp-block-vd-megamenu');
+			rootBlockNode = blockNode.closest('[data-block="' + rootBlockClientId + '"]').querySelector('.wp-block-vd-megamenu');
 		}
 
 		const rootCoords = rootBlockNode.getBoundingClientRect();
 
 		let left = -(blockCoords.x - rootCoords.x);
 
-		if ( parentAttributes.dropdownMaxWidth && rootCoords.width > parentAttributes.dropdownMaxWidth ) {
+		if (parentAttributes.dropdownMaxWidth && rootCoords.width > parentAttributes.dropdownMaxWidth) {
 			left = left + (rootCoords.width - parentAttributes.dropdownMaxWidth) / 2;
 		}
 
-		newDropdownPosition = {left: left, width: rootCoords.width};
+		newDropdownPosition = { left: left, width: rootCoords.width };
 
-		if( newDropdownPosition.left !== dropdownPosition.left
-			|| newDropdownPosition.width !== dropdownPosition.width ) {
+		if (newDropdownPosition.left !== dropdownPosition.left
+			|| newDropdownPosition.width !== dropdownPosition.width) {
 			setDropdownPosition(newDropdownPosition);
 		}
 	};
 
-	useEffect( () => {
+	useEffect(() => {
 		updateDropdownPosition();
-	}, [ isSelected ] );
+	}, [isSelected]);
 
-	useEffect( () => {
+	useEffect(() => {
 		const blockNode = menuItem.current;
-        if (blockNode) {
-            blockNode.ownerDocument.defaultView.addEventListener('resize', updateDropdownPosition);
-        }
-	}, [] );
+		if (blockNode) {
+			blockNode.ownerDocument.defaultView.addEventListener('resize', updateDropdownPosition);
+		}
+	}, []);
 
-	useEffect( () => {
-		setAttributes( {
+	useEffect(() => {
+		setAttributes({
 			fontSize: parentAttributes.menuItemFontSize,
 			customFontSize: parentAttributes.customMenuItemFontSize,
 			textColor: parentAttributes.menuItemColor,
 			customTextColor: parentAttributes.customMenuItemColor,
-		} );
-	}, [] );
+		});
+	}, []);
 
 	const dropdownWrapperStyle = {
 		left: dropdownPosition.left,
@@ -125,7 +125,7 @@ function MenuItemEdit( props ) {
 
 	const dropdownClasses = clsx('gw-mm-item__dropdown', {
 		'has-background': attributes.dropdownBackgroundColor || attributes.customDropdownBackgroundColor,
-		[ `has-${ attributes.dropdownBackgroundColor }-background-color` ]: !! attributes.dropdownBackgroundColor,
+		[`has-${attributes.dropdownBackgroundColor}-background-color`]: !!attributes.dropdownBackgroundColor,
 	});
 
 	const itemClasses = clsx(
@@ -141,8 +141,8 @@ function MenuItemEdit( props ) {
 		'gw-mm-item__link',
 		{
 			'has-text-color': attributes.textColor || attributes.customTextColor,
-			[ `has-${ attributes.textColor }-color` ]: !! attributes.textColor,
-			[ `has-${ attributes.fontSize }-font-size` ]: !! attributes.fontSize
+			[`has-${attributes.textColor}-color`]: !!attributes.textColor,
+			[`has-${attributes.fontSize}-font-size`]: !!attributes.fontSize
 		}
 	);
 
@@ -157,13 +157,13 @@ function MenuItemEdit( props ) {
 				<div className={itemLinkClasses} style={itemLinkStyles}>
 					<a>
 						<RichText
-							placeholder={ itemLabelPlaceholder }
-							value={ text }
-							onChange={ ( value ) => setAttributes( { text: value } ) }
+							placeholder={itemLabelPlaceholder}
+							value={text}
+							onChange={(value) => setAttributes({ text: value })}
 							withoutInteractiveFormatting
-							onReplace={ onReplace }
-							onMerge={ mergeBlocks }
-							identifier="text"/>
+							onReplace={onReplace}
+							onMerge={mergeBlocks}
+							identifier="text" />
 						{
 							(menuItemHasChildrens) && (
 								<span className="gw-mm-item__dropdown-icon">
@@ -175,10 +175,10 @@ function MenuItemEdit( props ) {
 				</div>
 				{
 					(showDropdown) && (
-						<div className='gw-mm-item__dropdown-wrapper' style={ dropdownWrapperStyle }>
-							<div className={ dropdownClasses } style={ dropdownStyle }>
-								<div className='gw-mm-item__dropdown-content' style={ dropdownContentStyle }>
-									<InnerBlocks/>
+						<div className='gw-mm-item__dropdown-wrapper' style={dropdownWrapperStyle}>
+							<div className={dropdownClasses} style={dropdownStyle}>
+								<div className='gw-mm-item__dropdown-content' style={dropdownContentStyle}>
+									<InnerBlocks />
 								</div>
 							</div>
 						</div>
@@ -186,9 +186,9 @@ function MenuItemEdit( props ) {
 				}
 			</div>
 			<Controls
-				{ ...props }
-				toggleItemDropdown={ toggleItemDropdown }
-				isItemDropdownOpened={ isItemDropdownOpened }
+				{...props}
+				toggleItemDropdown={toggleItemDropdown}
+				isItemDropdownOpened={isItemDropdownOpened}
 			/>
 		</>
 	);
@@ -205,7 +205,7 @@ export default compose([
 		const { clientId } = ownProps;
 		const isParentOfSelectedBlock = hasSelectedInnerBlock(clientId, true);
 		const hasDescendants = !!getBlockCount(clientId);
-		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'vd-megamenu/menu' )[0];
+		const rootBlockClientId = getBlockParentsByBlockName(clientId, 'vd-megamenu/menu')[0];
 
 		const parentAttributes = getBlock(rootBlockClientId).attributes;
 
@@ -216,15 +216,15 @@ export default compose([
 			parentAttributes
 		};
 	}),
-	withDispatch( ( dispatch, { clientId } ) => {
+	withDispatch((dispatch, { clientId }) => {
 		return {
-			updateInnerBlocks( blocks ) {
-				dispatch( 'core/block-editor' ).replaceInnerBlocks(
+			updateInnerBlocks(blocks) {
+				dispatch('core/block-editor').replaceInnerBlocks(
 					clientId,
 					[],
 					false
 				);
 			},
 		};
-	} ),
+	}),
 ])(MenuItemEdit);

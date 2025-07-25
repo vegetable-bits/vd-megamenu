@@ -35,7 +35,7 @@ The mega menu item block is very flexible - it allows you to add drop-down menus
 
 Searching for the best Gutenberg addon?
 
-Check out [Getwid WordPress Blocks](https://wordpress.org/plugins/getwid/) - a top-rated block & template library for the block editor.
+Check out [Vd WordPress Blocks](https://wordpress.org/plugins/vd/) - a top-rated block & template library for the block editor.
 
 == Frequently Asked Questions ==
 

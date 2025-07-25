@@ -42,7 +42,7 @@ function MenuItemEdit(props) {
 	const showDropdown = isMenuItemSelected && menuItemHasChildrens;
 
 	const itemClasses = clsx(
-		'wp-block-getwid-plain-menu-item',
+		'wp-block-vd-plain-menu-item',
 		'gw-pm-item',
 		{
 			'has-child': hasDescendants,
@@ -106,7 +106,7 @@ function MenuItemEdit(props) {
 						<div className='gw-pm-item__dropdown'>
 							<div className='gw-pm-item__dropdown-content'>
 								<InnerBlocks
-									allowedBlocks={ [ 'getwid-megamenu/plain-menu-item' ] }
+									allowedBlocks={ [ 'vd-megamenu/plain-menu-item' ] }
 									renderAppender={ ( isSelected && hasDescendants ) ||
 									( isImmediateParentOfSelectedBlock &&
 										! selectedBlockHasDescendants )
@@ -147,8 +147,8 @@ export default compose( [
 		const selectedBlockHasDescendants = !! getClientIdsOfDescendants( [
 			selectedBlockId,
 		] )?.length;
-		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'getwid-megamenu/plain-menu' )[0];
-		const parentItemClientId = getBlockParentsByBlockName( clientId, 'getwid-megamenu/plain-menu-item' )[0];
+		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'vd-megamenu/plain-menu' )[0];
+		const parentItemClientId = getBlockParentsByBlockName( clientId, 'vd-megamenu/plain-menu-item' )[0];
 
 		const parentAttributes = getBlock(rootBlockClientId).attributes;
 
@@ -181,7 +181,7 @@ export default compose( [
 				const navItems = getClientIdsOfDescendants( [ ownProps.clientId ] );
 				const insertionPoint = navItems.length ? navItems.length : 0;
 
-				const blockToInsert = createBlock( 'getwid-megamenu/plain-menu-item' );
+				const blockToInsert = createBlock( 'vd-megamenu/plain-menu-item' );
 
 				insertBlock( blockToInsert, insertionPoint, ownProps.clientId );
 			},

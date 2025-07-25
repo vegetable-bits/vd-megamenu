@@ -1,7 +1,7 @@
 <?php
 
 
-namespace GetwidMegaMenu;
+namespace VdMegaMenu;
 
 
 class PlainMenu extends AbstractBlock {
@@ -17,7 +17,7 @@ class PlainMenu extends AbstractBlock {
 			isset( $attributes['orientation'] ) ? array( 'is-orientation-' . $attributes['orientation'] ) : array()
 		);
 
-		$html = '<nav class="wp-block-getwid-plain-menu gw-pm ' . esc_attr( implode( ' ', $classes ) ) . '">';
+		$html = '<nav class="wp-block-vd-plain-menu gw-pm ' . esc_attr( implode( ' ', $classes ) ) . '">';
 		$html .= '<ul class="gw-pm__content">';
 		$html .= $content;
 		$html .= '</ul></nav>';
@@ -26,18 +26,18 @@ class PlainMenu extends AbstractBlock {
 	}
 
 	protected function setName() {
-		$this->name = 'getwid-megamenu/plain-menu';
+		$this->name = 'vd-megamenu/plain-menu';
 	}
 
 	protected function setStyle() {
-		$this->style = 'getwid-megamenu-block-style';
+		$this->style = 'vd-megamenu-block-style';
 	}
 
 	protected function setEditorStyle() {
-		$this->editor_style = 'getwid-megamenu-block-editor';
+		$this->editor_style = 'vd-megamenu-block-editor';
 	}
 
 	protected function setEditorScript() {
-		$this->editor_script = 'getwid-megamenu-block';
+		$this->editor_script = 'vd-megamenu-block';
 	}
 }

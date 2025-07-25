@@ -16,11 +16,11 @@ const { withSelect } = wp.data;
 const { compose } = wp.compose;
 
 const TEMPLATE = [
-	['getwid-megamenu/menu-item', {}],
+	['vd-megamenu/menu-item', {}],
 ];
 
 const ALLOWED_BLOCKS = [
-	'getwid-megamenu/menu-item'
+	'vd-megamenu/menu-item'
 ];
 
 function MegaMenu( args ) {
@@ -34,7 +34,7 @@ function MegaMenu( args ) {
 	const ref = useRef();
 
 	const menuClasses = clsx(
-		'wp-block-getwid-megamenu',
+		'wp-block-vd-megamenu',
 		'gw-mm',
 		{
 			[ `justify-items-${ attributes.itemsJustification }` ] : attributes.itemsJustification,

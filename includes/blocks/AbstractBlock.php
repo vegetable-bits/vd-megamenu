@@ -1,7 +1,7 @@
 <?php
 
 
-namespace GetwidMegaMenu;
+namespace VdMegaMenu;
 
 
 abstract class AbstractBlock {

@@ -70,7 +70,7 @@ function MenuItemEdit( props ) {
 		if ( parentAttributes.expandDropdown ) {
 			rootBlockNode = blockNode.closest('.editor-styles-wrapper');
 		} else {
-			rootBlockNode = blockNode.closest( '[data-block="' + rootBlockClientId + '"]' ).querySelector('.wp-block-getwid-megamenu');
+			rootBlockNode = blockNode.closest( '[data-block="' + rootBlockClientId + '"]' ).querySelector('.wp-block-vd-megamenu');
 		}
 
 		const rootCoords = rootBlockNode.getBoundingClientRect();
@@ -129,7 +129,7 @@ function MenuItemEdit( props ) {
 	});
 
 	const itemClasses = clsx(
-		'wp-block-getwid-megamenu-item',
+		'wp-block-vd-megamenu-item',
 		'gw-mm-item',
 		{
 			'has-child': hasDescendants,
@@ -205,7 +205,7 @@ export default compose([
 		const { clientId } = ownProps;
 		const isParentOfSelectedBlock = hasSelectedInnerBlock(clientId, true);
 		const hasDescendants = !!getBlockCount(clientId);
-		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'getwid-megamenu/menu' )[0];
+		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'vd-megamenu/menu' )[0];
 
 		const parentAttributes = getBlock(rootBlockClientId).attributes;
 

@@ -1,9 +1,9 @@
 {
-	"name": "getwid-megamenu",
+	"name": "vd-megamenu",
 	"version": "1.0.0",
 	"private": true,
 	"description": "WordPress Mega Menu Block",
-	"author": "MotoPress",
+	"author": "John Doe",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
 		"WordPress",

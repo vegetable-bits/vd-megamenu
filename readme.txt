@@ -5,7 +5,7 @@ Tags: mega menu, megamenu, WordPress menu, navigation, block
 Requires at least: 5.7
 Tested up to: 6.8
 Requires PHP: 5.6
-Stable tag: 1.0.7
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,6 +56,10 @@ Navigation Block with Mega Menu plugin is distributed under the terms of the GNU
 
 
 == Changelog ==
+
+= 1.1.0, July 25 2025 =
+* Create a fork vd-megamenu
+* Update node packages
 
 = 1.0.7, May 12 2025 =
 * Minor bugfixes and improvements.

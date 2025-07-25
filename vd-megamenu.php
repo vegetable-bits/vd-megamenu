@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'VD_MEGAMENU_VERSION', '1.0.7' );
+define( 'VD_MEGAMENU_VERSION', '1.1.0' );
 define( 'VD_MEGAMENU_FILE', __FILE__ );
 
 if ( ! function_exists( 'vd_megamenu_init' ) && function_exists( 'register_block_type' ) ) {

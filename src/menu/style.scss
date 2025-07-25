@@ -9,7 +9,7 @@
         margin: 0;
         padding: 0;
 
-        > li {
+        >li {
             margin: 0;
 
             &:after,
@@ -38,12 +38,13 @@
     }
 
     &__toggle {
+
         &:focus,
         &:active {
             text-decoration: none;
         }
 
-        > * {
+        >* {
             vertical-align: bottom;
         }
     }
@@ -70,6 +71,8 @@
 
     &:not(.is-mobile) {
         .gw-mm-item {
+
+            &:focus-within,
             &:hover {
                 .gw-mm-item__dropdown-wrapper {
                     height: auto;

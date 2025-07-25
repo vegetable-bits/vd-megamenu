@@ -1,17 +1,16 @@
 # WordPress Mega Menu Block
 
-![](https://img.shields.io/wordpress/plugin/v/getwid-megamenu)
-![](https://img.shields.io/wordpress/plugin/wp-version/getwid-megamenu)
-![](https://img.shields.io/wordpress/plugin/dd/getwid-megamenu)
-![](https://img.shields.io/wordpress/plugin/installs/getwid-megamenu)
-![](https://img.shields.io/wordpress/plugin/rating/getwid-megamenu)
+![](https://img.shields.io/wordpress/plugin/v/vd-megamenu)
+![](https://img.shields.io/wordpress/plugin/wp-version/vd-megamenu)
+![](https://img.shields.io/wordpress/plugin/dd/vd-megamenu)
+![](https://img.shields.io/wordpress/plugin/installs/vd-megamenu)
+![](https://img.shields.io/wordpress/plugin/rating/vd-megamenu)
 ![](https://img.shields.io/badge/license-GPL--2.0%2B-blue.svg?style=flat)
 
-This plugin allows you to build simple and advanced navigation menus the WordPress way with blocks.
+This plugin is a fork of the [Getwid WordPress Mega Menu block](https://github.com/motopress/getwid-megamenu) because I would like to have some upgrades and customizations.
 
-Once the full-site editing is released in WordPress, navigation menu plugins as we know them will become redundant. With this [WordPress Mega Menu block](https://wordpress.org/plugins/getwid-megamenu/), you'll be able to build and customize menus seamlessly using dedicated WP navigation blocks.
-
-Note: until full-site editing is not merged into WordPress Core, the options of this WordPress navigation menu plugin are temporarily limited. 
+It allows you to build simple and advanced navigation menus the WordPress way with blocks.
+With this [WordPress Mega Menu block](https://wordpress.org/plugins/vd-megamenu/), you'll be able to build and customize menus seamlessly using dedicated WP navigation blocks.
 
 The WordPress Mega Menu block comprises several navigation blocks:
 
@@ -29,4 +28,4 @@ A quick guide to working with the WordPress Mega Menu plugin:
 * You can change the width, color, font size, layouts (horizontal/vertical) of some mega menu blocks.
 * Optionally turn on the "hamburger button" for your WordPress mega menu on mobile devices for easier navigation.
 
-Love working in Gutenberg? Download [Getwid WordPress blocks](https://wordpress.org/plugins/getwid/) - the biggest library of free blocks and templates for the block editor.
+Love working in Gutenberg? Download [Vd WordPress blocks](https://wordpress.org/plugins/vd/) - the biggest library of free blocks and templates for the block editor.

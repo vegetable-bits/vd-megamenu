@@ -1,7 +1,7 @@
 <?php
 
 
-namespace GetwidMegaMenu;
+namespace VdMegaMenu;
 
 
 class PlainMenuItem extends AbstractBlock {
@@ -43,14 +43,14 @@ class PlainMenuItem extends AbstractBlock {
 		}
 
 		$item_classes = array_merge(
-			[ 'wp-block-getwid-plain-menu-item' ],
+			[ 'wp-block-vd-plain-menu-item' ],
 			[ 'gw-pm-item' ],
 			trim( $content ) ? [ 'has-children' ] : [],
 			$is_active ? [ 'is-current' ] : [],
 			isset( $attributes['className'] ) ? [ $attributes['className'] ] : []
 		);
 
-		$item_classes = apply_filters( 'getwid-megamenu/blocks/plain-menu-item/item-classes', $item_classes, $attributes );
+		$item_classes = apply_filters( 'vd-megamenu/blocks/plain-menu-item/item-classes', $item_classes, $attributes );
 
 		$font_size = $this->generateFontSizeStyles( $attributes );
 		$colors    = $this->generateTextStyles( $attributes );
@@ -150,18 +150,18 @@ class PlainMenuItem extends AbstractBlock {
 	}
 
 	protected function setName() {
-		$this->name = 'getwid-megamenu/plain-menu-item';
+		$this->name = 'vd-megamenu/plain-menu-item';
 	}
 
 	protected function setStyle() {
-		$this->style = 'getwid-megamenu-block-style';
+		$this->style = 'vd-megamenu-block-style';
 	}
 
 	protected function setEditorStyle() {
-		$this->editor_style = 'getwid-megamenu-block-editor';
+		$this->editor_style = 'vd-megamenu-block-editor';
 	}
 
 	protected function setEditorScript() {
-		$this->editor_script = 'getwid-megamenu-block';
+		$this->editor_script = 'vd-megamenu-block';
 	}
 }

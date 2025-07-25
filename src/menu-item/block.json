@@ -1,8 +1,8 @@
 {
-	"name": "getwid-megamenu/menu-item",
+	"name": "vd-megamenu/menu-item",
 	"category": "layout",
 	"parent": [
-		"getwid-megamenu/menu"
+		"vd-megamenu/menu"
 	],
 	"attributes": {
 		"url": {

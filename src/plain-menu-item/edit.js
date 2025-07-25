@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 import Controls from "./controls";
 
 /**
@@ -41,8 +41,8 @@ function MenuItemEdit(props) {
 	const menuItemHasChildrens = isItemDropdownOpened || hasDescendants;
 	const showDropdown = isMenuItemSelected && menuItemHasChildrens;
 
-	const itemClasses = classnames(
-		'wp-block-getwid-plain-menu-item',
+	const itemClasses = clsx(
+		'wp-block-vd-plain-menu-item',
 		'gw-pm-item',
 		{
 			'has-child': hasDescendants,
@@ -60,7 +60,7 @@ function MenuItemEdit(props) {
 		} );
 	}, [] );
 
-	const itemLinkClasses = classnames(
+	const itemLinkClasses = clsx(
 		'gw-pm-item__link',
 		{
 			'has-text-color': attributes.textColor || attributes.customTextColor,
@@ -106,7 +106,7 @@ function MenuItemEdit(props) {
 						<div className='gw-pm-item__dropdown'>
 							<div className='gw-pm-item__dropdown-content'>
 								<InnerBlocks
-									allowedBlocks={ [ 'getwid-megamenu/plain-menu-item' ] }
+									allowedBlocks={ [ 'vd-megamenu/plain-menu-item' ] }
 									renderAppender={ ( isSelected && hasDescendants ) ||
 									( isImmediateParentOfSelectedBlock &&
 										! selectedBlockHasDescendants )
@@ -147,8 +147,8 @@ export default compose( [
 		const selectedBlockHasDescendants = !! getClientIdsOfDescendants( [
 			selectedBlockId,
 		] )?.length;
-		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'getwid-megamenu/plain-menu' )[0];
-		const parentItemClientId = getBlockParentsByBlockName( clientId, 'getwid-megamenu/plain-menu-item' )[0];
+		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'vd-megamenu/plain-menu' )[0];
+		const parentItemClientId = getBlockParentsByBlockName( clientId, 'vd-megamenu/plain-menu-item' )[0];
 
 		const parentAttributes = getBlock(rootBlockClientId).attributes;
 
@@ -181,7 +181,7 @@ export default compose( [
 				const navItems = getClientIdsOfDescendants( [ ownProps.clientId ] );
 				const insertionPoint = navItems.length ? navItems.length : 0;
 
-				const blockToInsert = createBlock( 'getwid-megamenu/plain-menu-item' );
+				const blockToInsert = createBlock( 'vd-megamenu/plain-menu-item' );
 
 				insertBlock( blockToInsert, insertionPoint, ownProps.clientId );
 			},

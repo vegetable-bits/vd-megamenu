@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 import Controls from "./controls";
 
 /**
@@ -70,7 +70,7 @@ function MenuItemEdit( props ) {
 		if ( parentAttributes.expandDropdown ) {
 			rootBlockNode = blockNode.closest('.editor-styles-wrapper');
 		} else {
-			rootBlockNode = blockNode.closest( '[data-block="' + rootBlockClientId + '"]' ).querySelector('.wp-block-getwid-megamenu');
+			rootBlockNode = blockNode.closest( '[data-block="' + rootBlockClientId + '"]' ).querySelector('.wp-block-vd-megamenu');
 		}
 
 		const rootCoords = rootBlockNode.getBoundingClientRect();
@@ -123,13 +123,13 @@ function MenuItemEdit( props ) {
 		maxWidth: parentAttributes.dropdownContentMaxWidth
 	};
 
-	const dropdownClasses = classnames('gw-mm-item__dropdown', {
+	const dropdownClasses = clsx('gw-mm-item__dropdown', {
 		'has-background': attributes.dropdownBackgroundColor || attributes.customDropdownBackgroundColor,
 		[ `has-${ attributes.dropdownBackgroundColor }-background-color` ]: !! attributes.dropdownBackgroundColor,
 	});
 
-	const itemClasses = classnames(
-		'wp-block-getwid-megamenu-item',
+	const itemClasses = clsx(
+		'wp-block-vd-megamenu-item',
 		'gw-mm-item',
 		{
 			'has-child': hasDescendants,
@@ -137,7 +137,7 @@ function MenuItemEdit( props ) {
 		}
 	);
 
-	const itemLinkClasses = classnames(
+	const itemLinkClasses = clsx(
 		'gw-mm-item__link',
 		{
 			'has-text-color': attributes.textColor || attributes.customTextColor,
@@ -205,7 +205,7 @@ export default compose([
 		const { clientId } = ownProps;
 		const isParentOfSelectedBlock = hasSelectedInnerBlock(clientId, true);
 		const hasDescendants = !!getBlockCount(clientId);
-		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'getwid-megamenu/menu' )[0];
+		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'vd-megamenu/menu' )[0];
 
 		const parentAttributes = getBlock(rootBlockClientId).attributes;
 

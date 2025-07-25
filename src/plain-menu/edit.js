@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 import Controls from './controls';
 
 /**
@@ -15,10 +15,10 @@ const { withSelect } = wp.data;
 const { compose } = wp.compose;
 
 const TEMPLATE = [
-	['getwid-megamenu/plain-menu-item', {}],
+	['vd-megamenu/plain-menu-item', {}],
 ];
 const ALLOWED_BLOCKS = [
-	'getwid-megamenu/plain-menu-item',
+	'vd-megamenu/plain-menu-item',
 ];
 
 function PlainMenu( args ) {
@@ -31,8 +31,8 @@ function PlainMenu( args ) {
 
 	const ref = useRef();
 
-	const menuClasses = classnames(
-		'wp-block-getwid-plain-menu',
+	const menuClasses = clsx(
+		'wp-block-vd-plain-menu',
 		'gw-pm',
 		{
 			[ `justify-items-${ attributes.itemsJustification }` ]: attributes.itemsJustification,

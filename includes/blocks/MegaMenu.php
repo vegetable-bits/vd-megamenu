@@ -1,7 +1,7 @@
 <?php
 
 
-namespace GetwidMegaMenu;
+namespace VdMegaMenu;
 
 
 class MegaMenu extends AbstractBlock {
@@ -22,7 +22,7 @@ class MegaMenu extends AbstractBlock {
 			$collapse_on_mobile ? array('is-collapsible') : array()
 		);
 
-		$html = '<div class="wp-block-getwid-megamenu gw-mm ' . esc_attr( implode( ' ', $classes ) ) . '"';
+		$html = '<div class="wp-block-vd-megamenu gw-mm ' . esc_attr( implode( ' ', $classes ) ) . '"';
 		if ( isset( $attributes['dropdownMaxWidth'] ) ) {
 			$html .= ' data-dropdown-width="' . absint( $attributes['dropdownMaxWidth'] ) . '"';
 		}
@@ -44,8 +44,8 @@ class MegaMenu extends AbstractBlock {
 		if ( $collapse_on_mobile ) {
 			$toggle_button_alignment_style = isset( $attributes['toggleButtonAlignment'] ) ? 'style="text-align: ' . esc_attr( $attributes['toggleButtonAlignment'] ) . ';"' : '';
 
-			$button = '<button class="gw-mm__toggle"><span class="dashicons dashicons-menu"></span>' . esc_html__( 'Menu', 'getwid-megamenu' ) . '</button>';
-			$button = apply_filters( 'getwid-megamenu/blocks/megamenu/mobile-toggle-button', $button, $classes );
+			$button = '<button class="gw-mm__toggle"><span class="dashicons dashicons-menu"></span>' . esc_html__( 'Menu', 'vd-megamenu' ) . '</button>';
+			$button = apply_filters( 'vd-megamenu/blocks/megamenu/mobile-toggle-button', $button, $classes );
 
 			$html .= '<div class="gw-mm__toggle-wrapper is-hidden" ' . $toggle_button_alignment_style . '>';
 			$html .= $button;
@@ -61,18 +61,18 @@ class MegaMenu extends AbstractBlock {
 	}
 
 	protected function setName() {
-		$this->name = 'getwid-megamenu/menu';
+		$this->name = 'vd-megamenu/menu';
 	}
 
 	protected function setStyle() {
-		$this->style = 'getwid-megamenu-block-style';
+		$this->style = 'vd-megamenu-block-style';
 	}
 
 	protected function setEditorStyle() {
-		$this->editor_style = 'getwid-megamenu-block-editor';
+		$this->editor_style = 'vd-megamenu-block-editor';
 	}
 
 	protected function setEditorScript() {
-		$this->editor_script = 'getwid-megamenu-block';
+		$this->editor_script = 'vd-megamenu-block';
 	}
 }

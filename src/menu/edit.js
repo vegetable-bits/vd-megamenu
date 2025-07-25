@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import classnames from 'classnames';
+import clsx from 'clsx';
 import Controls from './controls';
 
 /**
@@ -16,11 +16,11 @@ const { withSelect } = wp.data;
 const { compose } = wp.compose;
 
 const TEMPLATE = [
-	['getwid-megamenu/menu-item', {}],
+	['vd-megamenu/menu-item', {}],
 ];
 
 const ALLOWED_BLOCKS = [
-	'getwid-megamenu/menu-item'
+	'vd-megamenu/menu-item'
 ];
 
 function MegaMenu( args ) {
@@ -33,8 +33,8 @@ function MegaMenu( args ) {
 
 	const ref = useRef();
 
-	const menuClasses = classnames(
-		'wp-block-getwid-megamenu',
+	const menuClasses = clsx(
+		'wp-block-vd-megamenu',
 		'gw-mm',
 		{
 			[ `justify-items-${ attributes.itemsJustification }` ] : attributes.itemsJustification,

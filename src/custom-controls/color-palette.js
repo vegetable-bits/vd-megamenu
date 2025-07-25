@@ -1,11 +1,5 @@
-const {
-	BaseControl,
-	ColorIndicator
-} = wp.components;
-
-const {
-	ColorPalette
-} = wp.blockEditor;
+import { BaseControl, ColorIndicator } from '@wordpress/components';
+import { ColorPalette } from '@wordpress/block-editor';
 
 function MPMegaMenuColorPalette(args) {
 	const {
@@ -16,25 +10,25 @@ function MPMegaMenuColorPalette(args) {
 		onChange
 	} = args;
 
-	return(
+	return (
 		<BaseControl>
 			<BaseControl.VisualLabel>
-				{ label }
-				{ (color) && (
+				{label}
+				{(color) && (
 					<ColorIndicator
-						colorValue={ color }
-						style={ {
+						colorValue={color}
+						style={{
 							verticalAlign: 'text-bottom',
 							background: color
-						} }
+						}}
 					/>
-				) }
+				)}
 			</BaseControl.VisualLabel>
 			<ColorPalette
-				value={ color }
-				onChange={ onChange }
-				disableCustomColors={ disableCustomColors }
-				clearable={ clearable }
+				value={color}
+				onChange={onChange}
+				disableCustomColors={disableCustomColors}
+				clearable={clearable}
 			/>
 		</BaseControl>
 	)

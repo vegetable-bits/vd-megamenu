@@ -1,23 +1,22 @@
 import MPMegaMenuColorPalette from '../custom-controls/color-palette';
-
-const { __ } = wp.i18n;
-const { useEffect } = wp.element;
-const {
+import { __ } from '@wordpress/i18n';
+import { useEffect } from '@wordpress/element';
+import {
 	BlockControls,
 	InspectorControls,
 	withFontSizes,
 	withColors,
 	getFontSizeObjectByValue
-} = wp.blockEditor;
-const {
+} from '@wordpress/block-editor';
+import {
 	PanelBody,
 	ToolbarDropdownMenu,
 	ToolbarButton,
 	ToolbarGroup,
 	FontSizePicker,
-} = wp.components;
-const { withDispatch, withSelect } = wp.data;
-const { compose } = wp.compose;
+} from '@wordpress/components';
+import { withDispatch, withSelect } from '@wordpress/data';
+import { compose } from '@wordpress/compose';
 
 function Controls(args) {
 	const {
@@ -34,91 +33,91 @@ function Controls(args) {
 		return () => {
 			const itemsJustification =
 				attributes.itemsJustification === alignment ? undefined : alignment;
-			setAttributes( {
+			setAttributes({
 				itemsJustification,
-			} );
+			});
 		}
 	}
 
-	useEffect( () => {
-		updateChildBlocksAttributes( {
+	useEffect(() => {
+		updateChildBlocksAttributes({
 			fontSize: menuItemFontSize.slug,
 			customFontSize: menuItemFontSize.slug ? undefined : menuItemFontSize.size,
-		} )
-	}, [ menuItemFontSize.size ] );
+		})
+	}, [menuItemFontSize.size]);
 
 
-	useEffect( () => {
-		updateChildBlocksAttributes( {
+	useEffect(() => {
+		updateChildBlocksAttributes({
 			textColor: menuItemColor.slug,
 			customTextColor: menuItemColor.slug ? undefined : menuItemColor.color,
-		} )
-	}, [ menuItemColor.color ] );
+		})
+	}, [menuItemColor.color]);
 
-	const setMenuItemFontSize = ( value ) => {
-		const fontSizeSlug = getFontSizeObjectByValue( fontSizes, value ).slug;
+	const setMenuItemFontSize = (value) => {
+		const fontSizeSlug = getFontSizeObjectByValue(fontSizes, value).slug;
 
-		setAttributes( {
+		setAttributes({
 			menuItemFontSize: fontSizeSlug,
 			customMenuItemFontSize: fontSizeSlug ? undefined : value?.toString(),
-		} );
+		});
 	};
 
-	return(
+	return (
 		<>
 			<BlockControls>
 				<ToolbarDropdownMenu
-					icon={ attributes.itemsJustification ? `editor-align${attributes.itemsJustification}` : "editor-alignleft" }
-					label={ __( 'Change items justification' ) }
-					controls={ [
+					icon={attributes.itemsJustification ? `editor-align${attributes.itemsJustification}` : "editor-alignleft"}
+					label={__('Change items justification')}
+					controls={[
 						{
 							icon: "editor-alignleft",
-							title: __( 'Justify items left' ),
+							title: __('Justify items left'),
 							isActive: 'left' === attributes.itemsJustification,
-							onClick: setAlignment( 'left' ),
+							onClick: setAlignment('left'),
 						},
 						{
 							icon: "editor-aligncenter",
-							title: __( 'Justify items center' ),
+							title: __('Justify items center'),
 							isActive:
 								'center' === attributes.itemsJustification,
-							onClick: setAlignment( 'center' ),
+							onClick: setAlignment('center'),
 						},
 						{
 							icon: "editor-alignright",
-							title: __( 'Justify items right' ),
+							title: __('Justify items right'),
 							isActive: 'right' === attributes.itemsJustification,
-							onClick: setAlignment( 'right' ),
+							onClick: setAlignment('right'),
 						},
-					] }
+					]}
 				/>
 				<ToolbarGroup>
 					<ToolbarButton
 						name="orientation"
 						icon="image-rotate-right"
-						title={ attributes.orientation === 'vertical' ? __('Make horizontal') : __('Make vertical') }
-						isActive={ attributes.orientation === 'vertical' }
-						onClick={ () => {
-							setAttributes( {
+						title={attributes.orientation === 'vertical' ? __('Make horizontal') : __('Make vertical')}
+						isActive={attributes.orientation === 'vertical'}
+						onClick={() => {
+							setAttributes({
 								orientation: attributes.orientation === 'vertical' ? 'horizontal' : 'vertical',
-							} )
-						} }
+							})
+						}}
 					/>
 				</ToolbarGroup>
 			</BlockControls>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) } initialOpen={ true }>
+				<PanelBody title={__('Settings')} initialOpen={true}>
 					<FontSizePicker
-						fontSizes={ fontSizes }
-						value={ menuItemFontSize.size }
-						onChange={ setMenuItemFontSize }
+						fontSizes={fontSizes}
+						value={menuItemFontSize.size}
+						onChange={setMenuItemFontSize}
 					/>
 					<MPMegaMenuColorPalette
 						label={__('Color')}
-						disableCustomColors={ false }
-						color={ menuItemColor.color }
-						onChange={ setMenuItemColor }
-						clearable={ true }
+						disableCustomColors={false}
+						color={menuItemColor.color}
+						onChange={setMenuItemColor}
+						clearable={true}
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -126,30 +125,30 @@ function Controls(args) {
 	)
 }
 
-export default compose( [
-	withColors( {
+export default compose([
+	withColors({
 		menuItemColor: 'color',
-	} ),
-	withFontSizes( 'menuItemFontSize' ),
-	withSelect( (select, ownProps) => {
+	}),
+	withFontSizes('menuItemFontSize'),
+	withSelect((select, ownProps) => {
 		const settings = select('core/block-editor').getSettings();
 
 		return {
 			fontSizes: settings.fontSizes
 		}
-	} ),
-	withDispatch( (dispatch, ownProps, registry) => ( {
-		updateChildBlocksAttributes( attributes ) {
-			const { updateBlockAttributes } = dispatch( 'core/block-editor' );
+	}),
+	withDispatch((dispatch, ownProps, registry) => ({
+		updateChildBlocksAttributes(attributes) {
+			const { updateBlockAttributes } = dispatch('core/block-editor');
 			const {
 				getBlocksByClientId
-			} = registry.select( 'core/block-editor' );
+			} = registry.select('core/block-editor');
 
 			const menuItems = getBlocksByClientId(ownProps.clientId)[0].innerBlocks;
 
-			menuItems.forEach( ( menuItem ) => {
-				updateBlockAttributes( menuItem.clientId, { ...attributes } );
+			menuItems.forEach((menuItem) => {
+				updateBlockAttributes(menuItem.clientId, { ...attributes });
 			})
 		}
-	} ) )
-] ) ( Controls );
+	}))
+])(Controls);

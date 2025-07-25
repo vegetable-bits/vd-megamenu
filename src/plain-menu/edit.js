@@ -7,12 +7,12 @@ import Controls from './controls';
 /**
  * WordPress dependencies
  */
-const { useRef } = wp.element;
-const {
+import { useRef } from '@wordpress/element';
+import {
 	InnerBlocks
-} = wp.blockEditor;
-const { withSelect } = wp.data;
-const { compose } = wp.compose;
+} from '@wordpress/block-editor';
+import { withSelect } from '@wordpress/data';
+import { compose } from '@wordpress/compose';
 
 const TEMPLATE = [
 	['vd-megamenu/plain-menu-item', {}],
@@ -21,7 +21,7 @@ const ALLOWED_BLOCKS = [
 	'vd-megamenu/plain-menu-item',
 ];
 
-function PlainMenu( args ) {
+function PlainMenu(args) {
 	const {
 		selectedBlockHasDescendants,
 		isImmediateParentOfSelectedBlock,
@@ -35,31 +35,31 @@ function PlainMenu( args ) {
 		'wp-block-vd-plain-menu',
 		'gw-pm',
 		{
-			[ `justify-items-${ attributes.itemsJustification }` ]: attributes.itemsJustification,
-			[ `is-orientation-${attributes.orientation}`]: attributes.orientation
+			[`justify-items-${attributes.itemsJustification}`]: attributes.itemsJustification,
+			[`is-orientation-${attributes.orientation}`]: attributes.orientation
 		}
 	);
 
 	return (
 		<>
-			<Controls { ...args }/>
-			<div className={ menuClasses }>
+			<Controls {...args} />
+			<div className={menuClasses}>
 				<div className="gw-pm__content">
 					<InnerBlocks
-						ref={ ref }
-						template={ TEMPLATE }
-						templateLock={ false }
-						allowedBlocks={ ALLOWED_BLOCKS }
-						templateInsertUpdatesSelection={ false }
+						ref={ref}
+						template={TEMPLATE}
+						templateLock={false}
+						allowedBlocks={ALLOWED_BLOCKS}
+						templateInsertUpdatesSelection={false}
 						renderAppender={
-							( isImmediateParentOfSelectedBlock &&
-								! selectedBlockHasDescendants ) ||
-							isSelected
+							(isImmediateParentOfSelectedBlock &&
+								!selectedBlockHasDescendants) ||
+								isSelected
 								? InnerBlocks.DefaultAppender
 								: false
 						}
-						__experimentalMoverDirection={ attributes.orientation }
-						orientation={ attributes.orientation }
+						__experimentalMoverDirection={attributes.orientation}
+						orientation={attributes.orientation}
 					/>
 				</div>
 			</div>
@@ -67,24 +67,24 @@ function PlainMenu( args ) {
 	);
 }
 
-export default compose( [
-	withSelect( ( select, { clientId } ) => {
+export default compose([
+	withSelect((select, { clientId }) => {
 		const {
 			getClientIdsOfDescendants,
 			hasSelectedInnerBlock,
 			getSelectedBlockClientId,
-		} = select( 'core/block-editor' );
+		} = select('core/block-editor');
 		const isImmediateParentOfSelectedBlock = hasSelectedInnerBlock(
 			clientId,
 			false
 		);
 		const selectedBlockId = getSelectedBlockClientId();
-		const selectedBlockHasDescendants = !! getClientIdsOfDescendants( [
+		const selectedBlockHasDescendants = !!getClientIdsOfDescendants([
 			selectedBlockId,
-		] )?.length;
+		])?.length;
 		return {
 			isImmediateParentOfSelectedBlock,
 			selectedBlockHasDescendants
 		};
-	} ),
-] )( PlainMenu );
+	}),
+])(PlainMenu);

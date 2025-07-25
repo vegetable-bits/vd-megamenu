@@ -7,12 +7,12 @@ import Controls from "./controls";
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n;
-const { useState, useEffect } = wp.element;
-const { compose } = wp.compose;
-const { withSelect, withDispatch } = wp.data;
-const {	RichText, InnerBlocks } = wp.blockEditor;
-const { createBlock } = wp.blocks;
+import { __ } from '@wordpress/i18n';
+import { useState, useEffect } from '@wordpress/element';
+import { compose } from '@wordpress/compose';
+import { withSelect, withDispatch } from '@wordpress/data';
+import { RichText, InnerBlocks } from '@wordpress/block-editor';
+import { createBlock } from '@wordpress/blocks';
 
 function MenuItemEdit(props) {
 	const {
@@ -33,9 +33,9 @@ function MenuItemEdit(props) {
 		text,
 	} = attributes;
 
-	const itemLabelPlaceholder = __( 'Add link…' );
+	const itemLabelPlaceholder = __('Add link…');
 
-    const [isItemDropdownOpened, setIsItemDropdownOpened] = useState(hasDescendants);
+	const [isItemDropdownOpened, setIsItemDropdownOpened] = useState(hasDescendants);
 
 	const isMenuItemSelected = isSelected || isParentOfSelectedBlock;
 	const menuItemHasChildrens = isItemDropdownOpened || hasDescendants;
@@ -51,21 +51,21 @@ function MenuItemEdit(props) {
 		}
 	);
 
-	useEffect( () => {
-		setAttributes( {
+	useEffect(() => {
+		setAttributes({
 			fontSize: parentItemClientId ? undefined : parentAttributes.menuItemFontSize,
 			customFontSize: parentItemClientId ? undefined : parentAttributes.customMenuItemFontSize,
 			textColor: parentItemClientId ? undefined : parentAttributes.menuItemColor,
 			customTextColor: parentItemClientId ? undefined : parentAttributes.customMenuItemColor,
-		} );
-	}, [] );
+		});
+	}, []);
 
 	const itemLinkClasses = clsx(
 		'gw-pm-item__link',
 		{
 			'has-text-color': attributes.textColor || attributes.customTextColor,
-			[ `has-${ attributes.textColor }-color` ]: !! attributes.textColor,
-			[ `has-${ attributes.fontSize }-font-size` ]: !! attributes.fontSize
+			[`has-${attributes.textColor}-color`]: !!attributes.textColor,
+			[`has-${attributes.fontSize}-font-size`]: !!attributes.fontSize
 		}
 	);
 
@@ -76,22 +76,22 @@ function MenuItemEdit(props) {
 
 	return (
 		<>
-			<div className={ itemClasses }>
-				<div className={ itemLinkClasses } style={ itemLinkStyles }>
+			<div className={itemClasses}>
+				<div className={itemLinkClasses} style={itemLinkStyles}>
 					<a
 						href="#"
-						onClick={ () => {
+						onClick={() => {
 							return false;
-						} }
+						}}
 					>
 						<RichText
 							placeholder={itemLabelPlaceholder}
 							value={text}
-							onChange={(value) => setAttributes({text: value})}
+							onChange={(value) => setAttributes({ text: value })}
 							withoutInteractiveFormatting
 							onReplace={onReplace}
 							onMerge={mergeBlocks}
-							identifier="text"/>
+							identifier="text" />
 						{
 							(menuItemHasChildrens) && (
 								<span className="gw-pm-item__dropdown-icon">
@@ -106,10 +106,10 @@ function MenuItemEdit(props) {
 						<div className='gw-pm-item__dropdown'>
 							<div className='gw-pm-item__dropdown-content'>
 								<InnerBlocks
-									allowedBlocks={ [ 'vd-megamenu/plain-menu-item' ] }
-									renderAppender={ ( isSelected && hasDescendants ) ||
-									( isImmediateParentOfSelectedBlock &&
-										! selectedBlockHasDescendants )
+									allowedBlocks={['vd-megamenu/plain-menu-item']}
+									renderAppender={(isSelected && hasDescendants) ||
+										(isImmediateParentOfSelectedBlock &&
+											!selectedBlockHasDescendants)
 										? InnerBlocks.DefaultAppender
 										: false}
 								/>
@@ -119,15 +119,15 @@ function MenuItemEdit(props) {
 				}
 			</div>
 			<Controls
-				{ ...props }
-				insertPlainMenuItem={ insertPlainMenuItem }
+				{...props}
+				insertPlainMenuItem={insertPlainMenuItem}
 			/>
 		</>
 	);
 }
 
-export default compose( [
-	withSelect( (select, ownProps) => {
+export default compose([
+	withSelect((select, ownProps) => {
 		const {
 			hasSelectedInnerBlock,
 			getClientIdsOfDescendants,
@@ -135,7 +135,7 @@ export default compose( [
 			getSelectedBlockClientId,
 			getBlock
 		} = select('core/block-editor');
-		const {clientId} = ownProps;
+		const { clientId } = ownProps;
 		const isParentOfSelectedBlock = hasSelectedInnerBlock(clientId, true);
 		const isImmediateParentOfSelectedBlock = hasSelectedInnerBlock(
 			clientId,
@@ -144,11 +144,11 @@ export default compose( [
 		const hasDescendants = !!getClientIdsOfDescendants([clientId])
 			.length;
 		const selectedBlockId = getSelectedBlockClientId();
-		const selectedBlockHasDescendants = !! getClientIdsOfDescendants( [
+		const selectedBlockHasDescendants = !!getClientIdsOfDescendants([
 			selectedBlockId,
-		] )?.length;
-		const rootBlockClientId = getBlockParentsByBlockName( clientId, 'vd-megamenu/plain-menu' )[0];
-		const parentItemClientId = getBlockParentsByBlockName( clientId, 'vd-megamenu/plain-menu-item' )[0];
+		])?.length;
+		const rootBlockClientId = getBlockParentsByBlockName(clientId, 'vd-megamenu/plain-menu')[0];
+		const parentItemClientId = getBlockParentsByBlockName(clientId, 'vd-megamenu/plain-menu-item')[0];
 
 		const parentAttributes = getBlock(rootBlockClientId).attributes;
 
@@ -163,28 +163,28 @@ export default compose( [
 			parentItemClientId
 		};
 	}),
-	withDispatch( ( dispatch, ownProps, registry ) => {
+	withDispatch((dispatch, ownProps, registry) => {
 		return {
-			clearInnerBlocks( blocks ) {
-				dispatch( 'core/block-editor' ).replaceInnerBlocks(
+			clearInnerBlocks(blocks) {
+				dispatch('core/block-editor').replaceInnerBlocks(
 					ownProps.clientId,
 					[],
 					false
 				);
 			},
 			insertPlainMenuItem() {
-				const { insertBlock } = dispatch( 'core/block-editor' );
+				const { insertBlock } = dispatch('core/block-editor');
 
 				const { getClientIdsOfDescendants } = registry.select(
 					'core/block-editor'
 				);
-				const navItems = getClientIdsOfDescendants( [ ownProps.clientId ] );
+				const navItems = getClientIdsOfDescendants([ownProps.clientId]);
 				const insertionPoint = navItems.length ? navItems.length : 0;
 
-				const blockToInsert = createBlock( 'vd-megamenu/plain-menu-item' );
+				const blockToInsert = createBlock('vd-megamenu/plain-menu-item');
 
-				insertBlock( blockToInsert, insertionPoint, ownProps.clientId );
+				insertBlock(blockToInsert, insertionPoint, ownProps.clientId);
 			},
 		};
-	} ),
-] ) ( MenuItemEdit );
+	}),
+])(MenuItemEdit);
